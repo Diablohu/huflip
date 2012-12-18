@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>huFlip</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" >
+<base target="_self" />
+<script type="text/javascript" src="lib/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="lib/huflip-0.1.0.js"></script>
+
+<script>
+$(document).ready(function(){
+	var tiles = [
+			{
+				img:	'https://swo3rg.dm1.livefilestore.com/y1pLP2z0xbFfW43Z9ixgXKXLNZkTJQSmAnCQ3AJfMJlgpcvAaQjx7mxze14eSEplU2cGTYzGcx-4GlV7GvLbyyrtdTQ-Jn3lS54/20121218.jpg?psid=1',
+				huFlip: {
+				}
+			},
+			{
+				img:	'https://t2o3rg.dm1.livefilestore.com/y1p7_N400G63sPiWBc30kAGfW154RHXqWdfAmnklJAt4ytI5VnvZKrd28t8EzpeMZLvn2wXBtjivjKrO3nsjegq9HZZKc3SH3_7/scaledfigure-sayaka_miki-0.jpg?psid=1',
+				huFlip: {
+					animation:	2
+				}
+			},
+			{
+				img:	'https://t2o3rg.dm1.livefilestore.com/y1pzCT2fgWvqVAVZBAhkNqD63GLJFjEnefJuPRM7Qt3g9pXgmeUjt5c-NpA4nS7xq2c1Zttc3pP2n9khiwaYsP8uJ6dNkIEoY1H/IMG_20121215_012627.jpg?psid=1',
+				huFlip: {
+					duration:	1000
+				}
+			}
+		]
+		,container = $('<div />').addClass('tiles').appendTo($('body'))
+		,defaults = {
+						animation:	0,
+						duration:	400
+					}
+
+	for( var i = 0; i < tiles.length; i++ ){
+		var tile = tiles[i]
+			,o = $('<a/>').attr('href','javascript:;').appendTo(container)
+			,c = $('<span/>').appendTo(o)
+			,j = $('<img/>').attr('src',tile.img).appendTo(c)
+			,e = j.clone()
+			,s = $.extend({}, defaults, tile.huFlip)
+			,l = $('<dl/>').appendTo(o)
+
+		for( var k in s ){
+			var v = s[k];
+			if( v == defaults[k] )
+				v += ' (DEFAULT)'
+
+			$('<dt/>').html(k).appendTo(l)
+			$('<dd/>').html(v).appendTo(l)
+		}
+
+		o.huFlip(e, tile.huFlip)
+
+		j.on({
+			load: function(){
+				var t = $(this);
+				if( t.width() < o.width() ){
+					t.css('max-height','none')
+						.css('top', (o.height() - t.height())/2 )
+				}
+				if( t.height() < o.height() ){
+					t.css('max-width','none')
+						.css('left', (o.width() - t.width())/2 )
+				}
+			}
+		})
+	}
+})
+</script>
+<style>
+.tiles{
+	text-align:		center;
+}
+.tiles a{
+	display:		inline-block;
+	width:			238px;
+	height:			118px;
+	padding:		0;
+	margin:			8px;
+	background:		#008e00;
+	border:			1px solid #1a961a;
+	text-align:		left;
+	vertical-align:	top;
+	position:		relative;
+}
+.tiles a span{
+	display:		block;
+	overflow:		hidden;
+	width:			100%;
+	height:			100%;
+	position:		relative;
+	z-index:		1;
+	text-align:		right;
+}
+.tiles a span img{
+	display:		inline-block;
+	max-width:		100%;
+	max-height:		100%;
+	position:		relative;
+}
+.tiles a dl{
+	display:		block;
+	overflow:		hidden;
+	width:			60%;
+	height:			100%;
+	position:		absolute;
+	top:			0;
+	left:			0;
+	z-index:		2;
+	margin:			0;
+	padding:		0;
+	color:			#fff;
+	font-size:		12px;
+	font-family:	Arial, "Microsoft YaHei UI", "Microsoft YaHei";
+	text-shadow:	1px 1px 0 rgba(0,143,0,0.5);
+	background-image: -webkit-linear-gradient(left, rgba(0,143,0,1) 60%, rgba(0,143,0,0) 100%);
+	background-image: -moz-linear-gradient(left, rgba(0,143,0,1) 60%, rgba(0,143,0,0) 100%);
+	background-image: -o-linear-gradient(left, rgba(0,143,0,1) 60%, rgba(0,143,0,0) 100%);
+	background-image: -ms-linear-gradient(left, rgba(0,143,0,1) 60%, rgba(0,143,0,0) 100%);
+	background-image: linear-gradient(left, rgba(0,143,0,1) 60%, rgba(0,143,0,0) 100%);
+}
+.tiles a dl dt{
+	display:		block;
+	font-style:		italic;
+	margin:			6px 0 0 6px;
+}
+.tiles a dl dd{
+	display:		block;
+	margin:			0 0 0 24px;
+}
+.tiles a:hover{
+	outline:		2px solid #bbb;
+}
+</style>
+
+</head>
+
+<body>
+
+</body>
+</html>
