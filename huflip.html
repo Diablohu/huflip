@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" >
 <base target="_self" />
 <script type="text/javascript" src="lib/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="lib/huflip-0.1.0.js"></script>
+<script type="text/javascript" src="lib/huflip-0.2.0.js"></script>
 
 <script>
 $(document).ready(function(){
@@ -17,22 +17,32 @@ $(document).ready(function(){
 				}
 			},
 			{
-				img:	'https://t2o3rg.dm1.livefilestore.com/y1p7_N400G63sPiWBc30kAGfW154RHXqWdfAmnklJAt4ytI5VnvZKrd28t8EzpeMZLvn2wXBtjivjKrO3nsjegq9HZZKc3SH3_7/scaledfigure-sayaka_miki-0.jpg?psid=1',
+				img:	'https://t2o3rg.dm1.livefilestore.com/y1pzCT2fgWvqVAVZBAhkNqD63GLJFjEnefJuPRM7Qt3g9pXgmeUjt5c-NpA4nS7xq2c1Zttc3pP2n9khiwaYsP8uJ6dNkIEoY1H/IMG_20121215_012627.jpg?psid=1',
 				huFlip: {
-					animation:	2
+					duration:		1000,
+					overlayStyle:	1
 				}
 			},
 			{
-				img:	'https://t2o3rg.dm1.livefilestore.com/y1pzCT2fgWvqVAVZBAhkNqD63GLJFjEnefJuPRM7Qt3g9pXgmeUjt5c-NpA4nS7xq2c1Zttc3pP2n9khiwaYsP8uJ6dNkIEoY1H/IMG_20121215_012627.jpg?psid=1',
+				img:	'https://t2o3rg.dm1.livefilestore.com/y1p7_N400G63sPiWBc30kAGfW154RHXqWdfAmnklJAt4ytI5VnvZKrd28t8EzpeMZLvn2wXBtjivjKrO3nsjegq9HZZKc3SH3_7/scaledfigure-sayaka_miki-0.jpg?psid=1',
 				huFlip: {
-					duration:	1000
+					animation:		2,
+					overlayStyle:	2
+				}
+			},
+			{
+				img:	'https://t2o3rg.dm1.livefilestore.com/y1p1-FWw0gVO8rlaYqKeYD7-jMlZ4slAYb1S-j-ffUrtogbXLlJsH5fs5R1-ZAR01fzVxQwyo9hcy9dCEluqYxBLlO6ziuQozGk/scaledfigure-kyouko_sakura-0.jpg?psid=1',
+				huFlip: {
+					duration:		250,
+					overlayStyle:	3
 				}
 			}
 		]
-		,container = $('<div />').addClass('tiles').appendTo($('body'))
+		,container = $('<div />').addClass('tiles').appendTo($('#samples'))
 		,defaults = {
-						animation:	0,
-						duration:	400
+						animation:		0,
+						duration:		600,
+						overlayStyle:	0
 					}
 
 	for( var i = 0; i < tiles.length; i++ ){
@@ -46,7 +56,11 @@ $(document).ready(function(){
 
 		for( var k in s ){
 			var v = s[k];
-			if( v == defaults[k] )
+
+			if( k == 'duration' )
+				v += 'ms'
+
+			if( v == defaults[k]+'ms' )
 				v += ' (DEFAULT)'
 
 			$('<dt/>').html(k).appendTo(l)
@@ -58,7 +72,7 @@ $(document).ready(function(){
 		j.on({
 			load: function(){
 				var t = $(this);
-				if( t.width() < o.width() ){
+				if( t.width() < o.width()*0.7 ){
 					t.css('max-height','none')
 						.css('top', (o.height() - t.height())/2 )
 				}
@@ -98,7 +112,7 @@ $(document).ready(function(){
 }
 .tiles a span img{
 	display:		inline-block;
-	max-width:		100%;
+	max-width:		70%;
 	max-height:		100%;
 	position:		relative;
 }
@@ -135,11 +149,27 @@ $(document).ready(function(){
 .tiles a:hover{
 	outline:		2px solid #bbb;
 }
+
+ul.update h3 small{
+	font-weight:	normal;
+	padding-left:	1em;
+}
 </style>
 
 </head>
 
 <body>
+
+<h2>示例</h2>
+<div id="samples"></div>
+
+<h2>更新历史</h2>
+<ul class="update">
+	<h3>v0.2.0<small>12/29/2012</small></h3>
+	<li>大部分基础样式写入CSS规则，而非内联样式。</li>
+	<li>动画效果修改优化，同时默认时间改为600ms。</li>
+	<li>新增3种浮层框体样式。</li>
+</ul>
 
 </body>
 </html>
