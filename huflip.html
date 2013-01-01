@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" >
 <base target="_self" />
 <script type="text/javascript" src="lib/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="lib/huflip-0.2.0.js"></script>
+<script type="text/javascript" src="lib/huflip-0.2.1.js?2"></script>
 
 <script>
 $(document).ready(function(){
@@ -19,6 +19,7 @@ $(document).ready(function(){
 			{
 				img:	'https://t2o3rg.dm1.livefilestore.com/y1pzCT2fgWvqVAVZBAhkNqD63GLJFjEnefJuPRM7Qt3g9pXgmeUjt5c-NpA4nS7xq2c1Zttc3pP2n9khiwaYsP8uJ6dNkIEoY1H/IMG_20121215_012627.jpg?psid=1',
 				huFlip: {
+					animation:		1,
 					duration:		1000,
 					overlayStyle:	1
 				}
@@ -33,6 +34,7 @@ $(document).ready(function(){
 			{
 				img:	'https://t2o3rg.dm1.livefilestore.com/y1p1-FWw0gVO8rlaYqKeYD7-jMlZ4slAYb1S-j-ffUrtogbXLlJsH5fs5R1-ZAR01fzVxQwyo9hcy9dCEluqYxBLlO6ziuQozGk/scaledfigure-kyouko_sakura-0.jpg?psid=1',
 				huFlip: {
+					animation:		3,
 					duration:		250,
 					overlayStyle:	3
 				}
@@ -60,7 +62,7 @@ $(document).ready(function(){
 			if( k == 'duration' )
 				v += 'ms'
 
-			if( v == defaults[k]+'ms' )
+			if( v == defaults[k] || v == defaults[k]+'ms' )
 				v += ' (DEFAULT)'
 
 			$('<dt/>').html(k).appendTo(l)
@@ -100,6 +102,7 @@ $(document).ready(function(){
 	text-align:		left;
 	vertical-align:	top;
 	position:		relative;
+	text-decoration:none;
 }
 .tiles a span{
 	display:		block;
@@ -115,6 +118,7 @@ $(document).ready(function(){
 	max-width:		70%;
 	max-height:		100%;
 	position:		relative;
+	border:			0;
 }
 .tiles a dl{
 	display:		block;
@@ -165,6 +169,10 @@ ul.update h3 small{
 
 <h2>更新历史</h2>
 <ul class="update">
+	<h3>v0.2.1<small>1/1/2013</small></h3>
+	<li>修正某些情况下eval函数产生的bug，现在不会使用这些函数了。</li>
+	<li>优化CSS私有前缀算法。</li>
+	<li>修正Firefox下的动画问题。</li>
 	<h3>v0.2.0<small>12/29/2012</small></h3>
 	<li>大部分基础样式写入CSS规则，而非内联样式。</li>
 	<li>动画效果修改优化，同时默认时间改为600ms。</li>
