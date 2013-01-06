@@ -6,18 +6,28 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" >
 <base target="_self" />
 <script type="text/javascript" src="lib/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="lib/huflip-0.2.1.js?2"></script>
+<script type="text/javascript" src="lib/huflip-0.2.2.js"></script>
 
 <script>
 $(document).ready(function(){
 	var tiles = [
 			{
-				img:	'https://swo3rg.dm1.livefilestore.com/y1pLP2z0xbFfW43Z9ixgXKXLNZkTJQSmAnCQ3AJfMJlgpcvAaQjx7mxze14eSEplU2cGTYzGcx-4GlV7GvLbyyrtdTQ-Jn3lS54/20121218.jpg?psid=1',
+				el: {
+					tag:	'img',
+					attr: {
+						src:	'https://swo3rg.dm1.livefilestore.com/y1pLP2z0xbFfW43Z9ixgXKXLNZkTJQSmAnCQ3AJfMJlgpcvAaQjx7mxze14eSEplU2cGTYzGcx-4GlV7GvLbyyrtdTQ-Jn3lS54/20121218.jpg?psid=1'
+					}
+				},
 				huFlip: {
 				}
 			},
 			{
-				img:	'https://t2o3rg.dm1.livefilestore.com/y1pzCT2fgWvqVAVZBAhkNqD63GLJFjEnefJuPRM7Qt3g9pXgmeUjt5c-NpA4nS7xq2c1Zttc3pP2n9khiwaYsP8uJ6dNkIEoY1H/IMG_20121215_012627.jpg?psid=1',
+				el: {
+					tag:	'img',
+					attr: {
+						src:	'https://t2o3rg.dm1.livefilestore.com/y1pzCT2fgWvqVAVZBAhkNqD63GLJFjEnefJuPRM7Qt3g9pXgmeUjt5c-NpA4nS7xq2c1Zttc3pP2n9khiwaYsP8uJ6dNkIEoY1H/IMG_20121215_012627.jpg?psid=1'
+					}
+				},
 				huFlip: {
 					animation:		1,
 					duration:		1000,
@@ -25,18 +35,39 @@ $(document).ready(function(){
 				}
 			},
 			{
-				img:	'https://t2o3rg.dm1.livefilestore.com/y1p7_N400G63sPiWBc30kAGfW154RHXqWdfAmnklJAt4ytI5VnvZKrd28t8EzpeMZLvn2wXBtjivjKrO3nsjegq9HZZKc3SH3_7/scaledfigure-sayaka_miki-0.jpg?psid=1',
+				el: {
+					tag:	'img',
+					attr: {
+						src:	'https://t2o3rg.dm1.livefilestore.com/y1p7_N400G63sPiWBc30kAGfW154RHXqWdfAmnklJAt4ytI5VnvZKrd28t8EzpeMZLvn2wXBtjivjKrO3nsjegq9HZZKc3SH3_7/scaledfigure-sayaka_miki-0.jpg?psid=1'
+					}
+				},
 				huFlip: {
 					animation:		2,
 					overlayStyle:	2
 				}
 			},
 			{
-				img:	'https://t2o3rg.dm1.livefilestore.com/y1p1-FWw0gVO8rlaYqKeYD7-jMlZ4slAYb1S-j-ffUrtogbXLlJsH5fs5R1-ZAR01fzVxQwyo9hcy9dCEluqYxBLlO6ziuQozGk/scaledfigure-kyouko_sakura-0.jpg?psid=1',
+				el: {
+					tag:	'img',
+					attr: {
+						src:	'https://t2o3rg.dm1.livefilestore.com/y1p1-FWw0gVO8rlaYqKeYD7-jMlZ4slAYb1S-j-ffUrtogbXLlJsH5fs5R1-ZAR01fzVxQwyo9hcy9dCEluqYxBLlO6ziuQozGk/scaledfigure-kyouko_sakura-0.jpg?psid=1'
+					}
+				},
 				huFlip: {
 					animation:		3,
 					duration:		250,
 					overlayStyle:	3
+				}
+			},
+			{
+				el: {
+					tag:	'iframe',
+					attr: {
+						src:	'http://www.microsoft.com'
+					}
+				},
+				huFlip: {
+					overlayStyle:	4
 				}
 			}
 		]
@@ -51,10 +82,11 @@ $(document).ready(function(){
 		var tile = tiles[i]
 			,o = $('<a/>').attr('href','javascript:;').appendTo(container)
 			,c = $('<span/>').appendTo(o)
-			,j = $('<img/>').attr('src',tile.img).appendTo(c)
+			,j = $('<'+tile.el.tag+'/>').attr(tile.el.attr).appendTo(c)
 			,e = j.clone()
 			,s = $.extend({}, defaults, tile.huFlip)
 			,l = $('<dl/>').appendTo(o)
+			$('<font/>').appendTo(o)
 
 		for( var k in s ){
 			var v = s[k];
@@ -82,6 +114,9 @@ $(document).ready(function(){
 					t.css('max-width','none')
 						.css('left', (o.width() - t.width())/2 )
 				}
+			},
+			ready: function(){
+				$(this).load()
 			}
 		})
 	}
@@ -113,12 +148,13 @@ $(document).ready(function(){
 	z-index:		1;
 	text-align:		right;
 }
-.tiles a span img{
+.tiles a span img, .tiles a span iframe{
 	display:		inline-block;
 	max-width:		70%;
 	max-height:		100%;
 	position:		relative;
 	border:			0;
+	overflow:		hidden;
 }
 .tiles a dl{
 	display:		block;
@@ -128,7 +164,7 @@ $(document).ready(function(){
 	position:		absolute;
 	top:			0;
 	left:			0;
-	z-index:		2;
+	z-index:		3;
 	margin:			0;
 	padding:		0;
 	color:			#fff;
@@ -150,8 +186,36 @@ $(document).ready(function(){
 	display:		block;
 	margin:			0 0 0 24px;
 }
+.tiles a font{
+	display:		block;
+	width:			100%;
+	height:			100%;
+	position:		absolute;
+	top:			0;
+	left:			0;
+	z-index:		2;
+	cursor:			pointer;
+	background:		#000;
+	opacity:		0;
+}
 .tiles a:hover{
 	outline:		2px solid #bbb;
+}
+.tiles a:active{
+	transform:	scale(0.95);
+	transition:	transform 0.1s linear;
+
+	-webkit-transform:	scale(0.95);
+	-webkit-transition:	-webkit-transform 0.1s linear;
+
+	-moz-transform:	scale(0.95);
+	-moz-transition:-moz-transform 0.1s linear;
+
+	-o-transform:	scale(0.95);
+	-o-transition:	-o-transform 0.1s linear;
+
+	-ms-transform:	scale(0.95);
+	-ms-transition:	-ms-transform 0.1s linear;
 }
 
 ul.update h3 small{
@@ -169,14 +233,21 @@ ul.update h3 small{
 
 <h2>更新历史</h2>
 <ul class="update">
+
+	<h3>v0.2.2<small>1/4/2013</small></h3>
+	<li>起始元素的动画采用CSS规则，而非内联样式。</li>
+	<li>现在目标元素若为iframe，则会采用与图片相同的规则。</li>
+
 	<h3>v0.2.1<small>1/1/2013</small></h3>
 	<li>修正某些情况下eval函数产生的bug，现在不会使用这些函数了。</li>
 	<li>优化CSS私有前缀算法。</li>
 	<li>修正Firefox下的动画问题。</li>
+
 	<h3>v0.2.0<small>12/29/2012</small></h3>
 	<li>大部分基础样式写入CSS规则，而非内联样式。</li>
 	<li>动画效果修改优化，同时默认时间改为600ms。</li>
 	<li>新增3种浮层框体样式。</li>
+
 </ul>
 
 </body>
