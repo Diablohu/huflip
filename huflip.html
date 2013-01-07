@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" >
 <base target="_self" />
 <script type="text/javascript" src="lib/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="lib/huflip-0.2.2.js"></script>
+<script type="text/javascript" src="lib/huflip-0.3.0.js?4"></script>
 
 <script>
 $(document).ready(function(){
@@ -19,6 +19,7 @@ $(document).ready(function(){
 					}
 				},
 				huFlip: {
+					isImg:			true
 				}
 			},
 			{
@@ -99,6 +100,10 @@ $(document).ready(function(){
 
 			$('<dt/>').html(k).appendTo(l)
 			$('<dd/>').html(v).appendTo(l)
+		}
+
+		if( tile.el.tag == 'img' || tile.el.tag == 'iframe'){
+		//	e = tile.el.attr.src
 		}
 
 		o.huFlip(e, tile.huFlip)
@@ -233,6 +238,13 @@ ul.update h3 small{
 
 <h2>更新历史</h2>
 <ul class="update">
+
+	<h3>v0.3.0<small>1/7/2013</small></h3>
+	<li>不支持CSS3 3D的浏览器现在可以正常使用本插件了。对于这些浏览器，使用“放大”效果替代“翻转”效果，目前已在IE7/8/9中测试通过。</li>
+	<li>变量el现在可以为字符串。若该值以.jpg、.gif等图片扩展名结尾，则会被自动判断为图片；若为绝对地址的URL，则会被自动判断为iframe。</li>
+	<li>加入两个可选项：isImg、isIframe，默认值为null，可以分别强制设定给定的el字符串为图片或iframe。</li>
+	<li>优化CSS私有前缀算法。</li>
+	<li>现在也可以使用.huflip（全小写）来使用本插件。</li>
 
 	<h3>v0.2.2<small>1/4/2013</small></h3>
 	<li>起始元素的动画采用CSS规则，而非内联样式。</li>
